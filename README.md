@@ -1,22 +1,34 @@
-# BUSSIM — City Bus Driver
+# BUSSIM — City Transit Simulator
 
-A browser-based 3D bus-driving sandbox built with Three.js. It includes a stylized city bus, moving traffic, road and roadside scenery, touch controls, camera modes, a basic service score, and animated passenger doors.
+A browser-based 3D city bus-driving prototype built with Three.js.
 
-## Run locally
+## Features
 
-Open `index.html` in a modern browser with an internet connection. Three.js is loaded from jsDelivr, so the page does not need a build step, npm, or a `package.json`.
+- Detailed procedural low-poly city bus with side windows, mirrors, wheels, passenger seating, dashboard, and driver cockpit view
+- Three camera modes, including a driver-view camera
+- Mobile touch controls for steering, accelerator, brake, doors, camera, hazards, and horn
+- Keyboard controls for desktop
+- Moving traffic in both directions, with simplified collision and service-score penalties
+- City buildings, trees, streetlights, sidewalks, bus shelters, waiting passengers, and a repeating route
+- Animated passenger doors; doors only operate when nearly stopped
+- Bus-stop service and route progress display
 
 ## Controls
 
-- **Mobile:** hold ACCEL / BRAKE and LEFT / RIGHT; tap DOORS, CAMERA, HAZARDS, or HORN.
-- **Desktop:** W / Up accelerates, S / Down brakes, A / D or Left / Right steers, E toggles doors, C changes camera, H honks, Space pauses.
+- **W / Up arrow:** accelerate
+- **S / Down arrow:** brake
+- **A / Left arrow:** steer left
+- **D / Right arrow:** steer right
+- **E:** open/close passenger doors (only when nearly stopped)
+- **C:** change camera (chase, wide, driver cockpit)
+- **H:** horn
+- **Space:** pause
+- On mobile, hold the on-screen pedals and steering buttons; tap the function buttons.
 
-Doors can only be opened while nearly stopped. Keep the bus on the road and avoid traffic.
+## Run and deploy
 
-## Cloudflare Pages
+This is a static website. It does not need npm, a package.json, or a build command. For Cloudflare Pages, set Framework preset to **None**, leave the build command empty, use the repository root as the root directory, and publish the root directory. The game loads Three.js from jsDelivr, so an internet connection is needed.
 
-Use the repository root as the root directory, set the framework preset to **None**, leave the build command empty, and set the output directory to `/` or `.` (whichever the dashboard accepts for the root). Redeploy after saving.
+## Important limitation
 
-## Scope
-
-This is a playable 3D prototype, not a commercial-grade simulator: vehicle dynamics, traffic AI, boarding animations, and world design are simplified and can be expanded further.
+This is an expanded playable prototype, not a professional-grade simulator. Traffic AI, collision handling, passenger boarding, road rules, vehicle physics, and the city are simplified; the bus and scenery are procedurally modeled rather than high-detail imported assets.
