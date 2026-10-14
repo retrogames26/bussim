@@ -54,7 +54,7 @@ function lampPost(x,z){const g=new THREE.Group();g.position.set(x,0,z);scene.add
 for(let z=30;z>-630;z-=13){for(const side of [-1,1]){const x=side*(14+Math.random()*9);if(Math.random()>.22)tree(x,z-Math.random()*5,.7+Math.random()*.6);if(z<-80&&Math.random()>.58)building(side*(22+Math.random()*14),z-4);if(z%39<1)lampPost(side*10.5,z)}}
 // shelters and marked bus bays
 const stopMarkers=[];const stopData=[{name:'CENTRAL STATION',z:-105},{name:'MARKET SQUARE',z:-300},{name:'RIVERFRONT',z:-500},{name:'CITY DEPOT',z:-690}];
-function busStop(z,name){const g=new THREE.Group();g.position.set(-10.7,0,z);scene.add(g);cube(g,0,.14,0,3.3,.22,7,mats.sidewalk);for(const x of [-1.3,1.3])cube(g,x,1.5,0,.1,2.8,.1,mats.dark);cube(g,0,2.85,0,3.1,.16,7,mats.bus);cube(g,0,1.9,0,3,.1,6,mats.glass);cube(g,0,1.0,0,3,.1,6,mats.dark);cube(g,0,3.25,-3.7,3.1,.8,.12,mats.dark);const sign=cube(g,0,3.25,-3.78,2.8,.56,.05,mats.bus);stopMarkers.push({g,z,name,served:false})}
+function busStop(z,name){const g=new THREE.Group();g.position.set(-10.7,0,z);scene.add(g);cube(g,0,.14,0,3.3,.22,7,mats.sidewalk);for(const x of [-1.3,1.3])cube(g,x,1.5,0,.1,2.8,.1,mats.dark);cube(g,0,2.85,0,3.1,.16,7,mats.bus);cube(g,0,1.9,0,3,.1,6,mats.glass);cube(g,0,1.0,0,3,.1,6,mats.dark);cube(g,0,3.25,-3.7,3.1,.8,.12,mats.dark);const sign=cube(g,0,3.25,-3.78,2.8,.56,.05,mats.bus);stopMarkers.push({g,z,baseZ:z,name,served:false,warned:false})}
 stopData.forEach(s=>busStop(s.z,s.name));
 // Build a detailed city bus with front at -Z, side glazing, wheel arches, destination board and interior.
 const bus=new THREE.Group();scene.add(bus);bus.position.set(-3.2,0,0);
@@ -104,7 +104,7 @@ const dir=(held.left?-1:0)+(held.right?1:0);steer=THREE.MathUtils.damp(steer,dir
 const shift=speed*dt;dist+=shift/1000;
 for(const obj of worldObjects){obj.o.position.z+=shift;if(obj.o.position.z>35)obj.o.position.z-=650}
 for(const bit of roadBits){bit.position.z+=shift;if(bit.position.z>30)bit.position.z-=680}
-for(const s of stopMarkers){s.g.position.z+=shift;if(!s.served&&Math.abs(s.g.position.z)<4){if(speed<.6&&doorsOpen){s.served=true;service=Math.min(100,service+8);toast('Stop served · passengers boarding');}else if(s.g.position.z>0&&s.g.position.z<1.5&&!s.warned){s.warned=true;service=Math.max(0,service-3);toast('Bus stop missed · stop and open doors next time')}}if(s.g.position.z>35){s.g.position.z-=800;s.served=false;s.warned=false}}
+for(const s of stopMarkers){s.g.position.z+=shift;if(!s.served&&Math.abs(s.g.position.z)<4){if(speed<.6&&doorsOpen){s.served=true;service=Math.min(100,service+8);toast('Stop served · passengers boarding');}else if(s.g.position.z>0&&s.g.position.z<1.5&&!s.warned){s.warned=true;service=Math.max(0,service-3);toast('Bus stop missed · stop and open doors next time')}}if(s.g.position.z>35){s.baseZ-=800;s.g.position.z=s.baseZ;s.served=false;s.warned=false}}
 for(const t of traffic){t.g.position.z+=(speed-t.speed*(t.opposite?-1:1))*dt;if(t.g.position.z>32)t.g.position.z=-260-Math.random()*140;if(t.g.position.z< -420)t.g.position.z=20+Math.random()*60;
 const dz=Math.abs(t.g.position.z),dx=Math.abs(t.g.position.x-bus.position.x);if(dz<3.8&&dx<2.15){speed=Math.max(0,speed-13*dt);service=Math.max(0,service-8*dt);if(Math.random()<.025)toast('Collision! Give traffic more space')}
 if(!t.opposite&&Math.abs(t.g.position.z)<15&&Math.abs(t.g.position.x-bus.position.x)<3.2&&speed>t.speed+6)service=Math.max(0,service-.015)}
