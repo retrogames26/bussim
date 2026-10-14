@@ -1,14 +1,22 @@
-# Roadline Bus Driver
+# BUSSIM — City Bus Driver
 
-A lightweight mobile-friendly bus driving game. It runs directly in the browser and needs no build step or external libraries.
+A browser-based 3D bus-driving sandbox built with Three.js. It includes a stylized city bus, moving traffic, road and roadside scenery, touch controls, camera modes, a basic service score, and animated passenger doors.
 
-## Play
-Open `index.html` in a browser, or visit the deployed site at `/bus-driving-game/` if your GitHub Pages/Cloudflare Pages setup publishes the repository root.
+## Run locally
 
-- Phone: hold **ACCEL** to drive, use **← / →** to steer, and hold **BRAKE** to slow down.
-- Desktop: arrow keys or WASD; Space / Down arrow brakes.
+Open `index.html` in a modern browser with an internet connection. Three.js is loaded from jsDelivr, so the page does not need a build step, npm, or a `package.json`.
 
-## Publish
-If the repository is already connected to Cloudflare Pages or GitHub Pages and publishes the repository root, the game is available at `https://YOUR-SITE/bus-driving-game/` after deployment completes. No additional build command is required for this static game.
+## Controls
 
-This is an arcade-style driving prototype with a perspective road and a stylized bus, not a full vehicle-physics simulator.
+- **Mobile:** hold ACCEL / BRAKE and LEFT / RIGHT; tap DOORS, CAMERA, HAZARDS, or HORN.
+- **Desktop:** W / Up accelerates, S / Down brakes, A / D or Left / Right steers, E toggles doors, C changes camera, H honks, Space pauses.
+
+Doors can only be opened while nearly stopped. Keep the bus on the road and avoid traffic.
+
+## Cloudflare Pages
+
+Use the repository root as the root directory, set the framework preset to **None**, leave the build command empty, and set the output directory to `/` or `.` (whichever the dashboard accepts for the root). Redeploy after saving.
+
+## Scope
+
+This is a playable 3D prototype, not a commercial-grade simulator: vehicle dynamics, traffic AI, boarding animations, and world design are simplified and can be expanded further.
